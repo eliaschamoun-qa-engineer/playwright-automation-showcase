@@ -23,7 +23,7 @@ export class CartPage{
         this.productDesc = page.locator('[data-test="inventory-item-desc"]');
         this.productPrice = page.locator('[data-test="inventory-item-price"]');
         this.continueShoppingButton = page.locator('');
-        this.checkoutButton = page.locator('');
+        this.checkoutButton = page.locator('locator');
         this.removeFromCartButton = page.locator('class="btn btn_secondary btn_small cart_button"');
     }
 
