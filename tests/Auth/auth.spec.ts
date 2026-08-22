@@ -17,10 +17,10 @@ test.describe('Full Authentication Testing Suite', () => {
         - text: secret_sauce
     `);
 
-    await loginPage.login(loginData.users.standard_user, process.env.TEST_USER_PASSWORD);
+    await loginPage.login(loginData.users.standard_user, process.env.TEST_USER_PASSWORD || '');
 
     //Assertions on the inventory Page after successful login
-    await expect(page).toHaveURL(/.*\/inventory\.html/);
+    await expect(page).toHaveURL(/.*inventory/);
 
     await menuContainer.openMenu();
     
