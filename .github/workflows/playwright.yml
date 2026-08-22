@@ -18,7 +18,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test tests/Inventory/inventory-products.spec.ts --project=chromium
+      run: npx playwright test tests/Auth/testing-auth.spec.ts --project=chromium
       env: # Injecting your specific environment variables
         TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
         TEST_USERNAME_COOKIE: ${{ secrets.TEST_USERNAME_COOKIE }}
