@@ -10,49 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
-        
     - name: Install dependencies
       run: npm ci
-      
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-      
     - name: Run Playwright tests
       run: npx playwright test
-      continue-on-error: true # Prevents failing tests from blocking report generation
-      env: 
+      env: # Injecting your specific environment variables
         TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
         TEST_USERNAME_COOKIE: ${{ secrets.TEST_USERNAME_COOKIE }}
         TEST_VALUE_COOKIE: ${{ secrets.TEST_VALUE_COOKIE }}
-
-    - name: Load Allure Report History
-      uses: actions/checkout@v4
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages-dir
-
-    - name: Build Allure Report
-      uses: simple-elf/allure-report-action@v1.11
-      if: always()
-      with:
-        allure_results: allure-results
-        allure_history: allure-history
-        keep_reports: 20
-
-    - name: Deploy Report to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      if: always()
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: allure-history
-
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
