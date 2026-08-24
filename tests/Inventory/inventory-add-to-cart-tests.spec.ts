@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/baseFixture';
 import LoginData from '../../data/LoginData.json';
 
-test.describe.skip('E2E full Testing Suite for Add To Cart', () => {
+test.describe('E2E full Testing Suite for Add To Cart', () => {
     
     test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
         await page.goto('/');

@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/baseFixture';
 import InventoryData from '../../data/InventoryData.json'
 import LoginData from '../../data/LoginData.json'
 
-test.describe.skip("Inventory testing suite for products", ()=>{
+test.describe("Inventory testing suite for products", ()=>{
      
   test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
     await page.goto('/');

@@ -1,14 +1,14 @@
 import { test, expect } from '../../fixtures/baseFixture';
 import InventoryData from '../../data/InventoryData.json';
 import LoginData from '../../data/LoginData.json';
-
 import { 
   isSortedAZ, 
   isSortedZA, 
   isSortedPriceLowToHigh, 
   isSortedPriceHighToLow 
 } from '../../utils/sortingUtils';
-test.describe.skip("Inventory testing suite for sorting products", () => {
+
+test.describe("Inventory testing suite for sorting products", () => {
     
     test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
         await page.goto('/');
