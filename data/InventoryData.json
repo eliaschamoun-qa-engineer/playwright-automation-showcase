@@ -20,5 +20,8 @@
         "za": "Name (Z to A)",
         "lowToHigh": "Price (low to high)",
         "highToLow": "Price (high to low)"
+    },
+    "labels":{
+        "swag_labs_label": "Swag Labs"
     }
 }

@@ -1,16 +1,11 @@
 import { test, expect } from '../../fixtures/baseFixture';
+import LoginData from '../../data/LoginData.json';
 
 test.describe.skip('E2E full Testing Suite for Add To Cart', () => {
     
-    test.beforeEach(async ({ page, context, baseURL }) => {
-        await context.addCookies([
-            {
-                name: process.env.TEST_USERNAME_COOKIE, // Change this to your app's actual cookie name
-                value: process.env.TEST_VALUE_COOKIE,
-                url: baseURL,
-            }
-        ]);
-        await page.goto('/inventory.html');
+    test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
+        await page.goto('/');
+        await loginPage.login(LoginData.users.standard_user, LoginData.users.valid_password);
     });
 
     test('Test Case ATC-7: Verify correct behavior when adding one new item to the cart', async({inventoryPage, cartPage})=>{

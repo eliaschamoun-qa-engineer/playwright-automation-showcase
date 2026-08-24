@@ -1,5 +1,7 @@
 import { test, expect } from '../../fixtures/baseFixture';
-import InventoryData from '../../data/InventoryData.json'
+import InventoryData from '../../data/InventoryData.json';
+import LoginData from '../../data/LoginData.json';
+
 import { 
   isSortedAZ, 
   isSortedZA, 
@@ -8,15 +10,9 @@ import {
 } from '../../utils/sortingUtils';
 test.describe.skip("Inventory testing suite for sorting products", () => {
     
-    test.beforeEach(async ({ page, context, baseURL }) => {
-        await context.addCookies([
-            {
-                name: process.env.TEST_USERNAME_COOKIE, // Change this to your app's actual cookie name
-                value: process.env.TEST_VALUE_COOKIE,
-                url: baseURL,
-            }
-        ]);
-        await page.goto('/inventory.html');
+    test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
+        await page.goto('/');
+        await loginPage.login(LoginData.users.standard_user, LoginData.users.valid_password);
     });
 
     test('Test Case Inv-3: Verify correct sorting of products: A to Z', async ({ inventoryPage }) => {

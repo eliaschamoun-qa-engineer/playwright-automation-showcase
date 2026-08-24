@@ -4,12 +4,14 @@ import loginData from '../../data/LoginData.json';
 import InventoryData from '../../data/InventoryData.json'
 test.describe('Full Authentication Testing Suite', () => {
 
-  test('Test Case 1: Verify a successful login routes to the Inventory feed', async ({ baseURL, page, loginPage, menuContainer, inventoryPage }) => {
+  test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
     await page.goto('/');
+  });
+  test('Test Case 1: Verify a successful login routes to the Inventory feed', async ({ baseURL, page, loginPage, menuContainer, inventoryPage }) => {
+    
+    await expect(loginPage.pageTitle).toContainText(InventoryData.labels.swag_labs_label);
 
-    await expect(loginPage.pageTitle).toContainText('Swag Labs');
-
-    await expect(page.locator('[data-test="login-credentials-container"]'))
+    await expect(loginPage.loginCredentialsContainer)
       .toMatchAriaSnapshot(`
         - heading "Accepted usernames are:" [level=4]
         - text: standard_user locked_out_user problem_user performance_glitch_user error_user visual_user
@@ -83,10 +85,6 @@ test.describe('Full Authentication Testing Suite', () => {
   });
 
   test('Test Case 2: Verify user cannot proceed when the user is locked out', async ({ page, loginPage }) => {
-    await page.goto('/');
-
-    await loginPage.login('locked_out_user', 'secret');
-
     await loginPage.login(loginData.users.locked_out_user, process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
 
     await expect(loginPage.errorMessage).toBeVisible();
@@ -98,21 +96,7 @@ test.describe('Full Authentication Testing Suite', () => {
   });
 
   test('Test Case 3: Verify user cannot access the website unless is logged in', async ({ page, context, loginPage, menuContainer, baseURL}) => {
-    await context.addCookies([
-      {
-          name: process.env.TEST_USERNAME_COOKIE, // Change this to your app's actual cookie name
-          value: process.env.TEST_VALUE_COOKIE,
-          url: baseURL,
-      }
-    ]);
-    //Notice the login without actually runnig the login everytime.
     await page.goto('/inventory.html');
-
-    await menuContainer.openMenu();
-    
-    await menuContainer.logout();
-
-    await page.goto('/inventory.html'); 
 
     await expect(loginPage.errorMessage).toHaveText(loginData.error_messages.access_message);
 
@@ -120,8 +104,6 @@ test.describe('Full Authentication Testing Suite', () => {
   });
 
   test('Test Case 4: Verify adequate input error handling on the login page', async({page, loginPage })=>{
-    await page.goto('/');
-
     await loginPage.login('', process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
 
     await expect(page).toHaveURL('/');
