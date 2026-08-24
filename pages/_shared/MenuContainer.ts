@@ -21,15 +21,19 @@ export class MenuContainer{
         this.resetAppState = page.locator('[data-test="reset-sidebar-link"]');
     }
     async openMenu(){
+        await this.openMenuButton.waitFor({state: 'visible'});
         await this.openMenuButton.click();
     }
     async closeMenu(){
+        await this.closeMenuButton.waitFor({state: 'visible'});
         await this.closeMenuButton.click();
     }
     async logout(){
+        await this.logoutButton.waitFor({state: 'visible'});
         await this.logoutButton.click();
     }
     async resetAppStateClick(){
+        await this.resetAppState.waitFor({state: 'visible'});
         await this.resetAppState.click();
     }
 }
