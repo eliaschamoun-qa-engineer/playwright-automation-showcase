@@ -17,6 +17,7 @@ export class LoginPage {
         this.errorMessage = page.locator('[data-test="error"]');
     }
     async login(email: string, password: string){
+        await this.emailInput.waitFor({state: 'visible'});
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
