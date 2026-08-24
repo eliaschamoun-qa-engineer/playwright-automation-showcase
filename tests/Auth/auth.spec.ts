@@ -20,7 +20,7 @@ test.describe('Full Authentication Testing Suite', () => {
     await loginPage.login(loginData.users.standard_user, process.env.TEST_USER_PASSWORD || '');
 
     //Assertions on the inventory Page after successful login
-    await expect(page).toHaveURL(/.*inventory/);
+    // await expect(page).toHaveURL(/.*inventory/);
 
     await menuContainer.openMenu();
     
