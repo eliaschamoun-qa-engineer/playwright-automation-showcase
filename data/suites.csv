@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1595","QA Testing","firefox","2026-08-24","passed","2026-08-24","Full Authentication Testing Suite","Auth/testing-auth.spec.ts","",""
+"","5115","QA Testing","webkit","2026-08-24","passed","2026-08-24","Full Authentication Testing Suite","Auth/testing-auth.spec.ts","",""
+"","401","QA Testing","chromium","2026-08-24","passed","2026-08-24","Full Authentication Testing Suite","Auth/testing-auth.spec.ts","",""
