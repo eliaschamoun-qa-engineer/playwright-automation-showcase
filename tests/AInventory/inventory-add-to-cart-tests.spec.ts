@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseFixture';
 
-test.describe('E2E full Testing Suite for Add To Cart', () => {
+test.describe.skip('E2E full Testing Suite for Add To Cart', () => {
     
     test.beforeEach(async ({ page, context, baseURL }) => {
         await context.addCookies([

@@ -17,7 +17,7 @@ test.describe('Full Authentication Testing Suite', () => {
         - text: secret_sauce
     `);
     
-    await loginPage.login(loginData.users.standard_user, process.env.TEST_USER_PASSWORD || '');
+    await loginPage.login(loginData.users.standard_user, process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
 
     //Assertions on the inventory Page after successful login
     await expect(page).toHaveURL(`${baseURL}inventory.html`);
@@ -87,7 +87,7 @@ test.describe('Full Authentication Testing Suite', () => {
 
     await loginPage.login('locked_out_user', 'secret');
 
-    await loginPage.login(loginData.users.locked_out_user, process.env.TEST_USER_PASSWORD);
+    await loginPage.login(loginData.users.locked_out_user, process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
 
     await expect(loginPage.errorMessage).toBeVisible();
 
@@ -97,7 +97,7 @@ test.describe('Full Authentication Testing Suite', () => {
 
   });
 
-  test.skip('Test Case 3: Verify user cannot access the website unless is logged in', async ({ page, context, loginPage, menuContainer, baseURL}) => {
+  test('Test Case 3: Verify user cannot access the website unless is logged in', async ({ page, context, loginPage, menuContainer, baseURL}) => {
     await context.addCookies([
       {
           name: process.env.TEST_USERNAME_COOKIE, // Change this to your app's actual cookie name
@@ -122,7 +122,7 @@ test.describe('Full Authentication Testing Suite', () => {
   test('Test Case 4: Verify adequate input error handling on the login page', async({page, loginPage })=>{
     await page.goto('/');
 
-    await loginPage.login('', process.env.TEST_USER_PASSWORD);
+    await loginPage.login('', process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
 
     await expect(page).toHaveURL('/');
 

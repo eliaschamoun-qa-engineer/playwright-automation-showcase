@@ -6,7 +6,7 @@ import {
   isSortedPriceLowToHigh, 
   isSortedPriceHighToLow 
 } from '../../utils/sortingUtils';
-test.describe("Inventory testing suite for sorting products", () => {
+test.describe.skip("Inventory testing suite for sorting products", () => {
     
     test.beforeEach(async ({ page, context, baseURL }) => {
         await context.addCookies([

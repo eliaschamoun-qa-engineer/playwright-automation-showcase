@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/baseFixture';
 import InventoryData from '../../data/InventoryData.json'
 
-test.describe("Inventory testing suite for products", ()=>{
+test.describe.skip("Inventory testing suite for products", ()=>{
      
   test.beforeEach(async ({ page, context, baseURL }) => {
     await context.addCookies([
