@@ -12,7 +12,7 @@ test.describe("Inventory testing suite for sorting products", () => {
     
     test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
         await page.goto('/');
-        await loginPage.login(LoginData.users.standard_user, LoginData.users.valid_password);
+        await loginPage.login(LoginData.users.standard_user, process.env.TEST_USER_PASSWORD || LoginData.users.valid_password);
     });
 
     test('Test Case Inv-3: Verify correct sorting of products: A to Z', async ({ inventoryPage }) => {

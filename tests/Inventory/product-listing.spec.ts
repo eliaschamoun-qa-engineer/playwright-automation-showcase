@@ -6,7 +6,7 @@ test.describe("Inventory testing suite for products", ()=>{
      
   test.beforeEach(async ({ page, loginPage, context, baseURL }) => {
     await page.goto('/');
-    await loginPage.login(LoginData.users.standard_user, LoginData.users.valid_password);
+    await loginPage.login(LoginData.users.standard_user, process.env.TEST_USER_PASSWORD || LoginData.users.valid_password);
   });
 
   test('Test Case Inv-1: Verify correct product names (titles) and description (test will fail because of weird names)', async ({ page, inventoryPage }) => {

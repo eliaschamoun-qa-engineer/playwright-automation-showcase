@@ -8,7 +8,6 @@ test.describe('Full Authentication Testing Suite', () => {
     await page.goto('/');
   });
   test('Test Case 1: Verify a successful login routes to the Inventory feed', async ({ baseURL, page, loginPage, menuContainer, inventoryPage }) => {
-    
     await expect(loginPage.pageTitle).toContainText(InventoryData.labels.swag_labs_label);
 
     await expect(loginPage.loginCredentialsContainer)
@@ -84,15 +83,16 @@ test.describe('Full Authentication Testing Suite', () => {
 
   });
 
-  test('Test Case 2: Verify user cannot proceed when the user is locked out', async ({ page, loginPage }) => {
+  test('Test Case 2: Verify user cannot proceed when the user is locked out @p1 @regression', async ({ page, loginPage }) => {
     await loginPage.login(loginData.users.locked_out_user, process.env.TEST_USER_PASSWORD || loginData.users.valid_password);
+
+    await expect(loginPage.errorMessage).toBeVisible();
 
     await expect(loginPage.errorMessage).toBeVisible();
 
     await expect(loginPage.errorMessage).toHaveText(loginData.error_messages.locked_out_user);
 
     await expect(page).toHaveURL('/');
-
   });
 
   test('Test Case 3: Verify user cannot access the website unless is logged in', async ({ page, context, loginPage, menuContainer, baseURL}) => {
