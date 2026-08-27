@@ -7,6 +7,7 @@ export class LoginPage {
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
     readonly errorMessage: Locator;
+    readonly loginCredentialsContainer: Locator;
     
     constructor(page: Page) {
         this.page = page;
@@ -15,8 +16,10 @@ export class LoginPage {
         this.passwordInput = page.locator('#password');
         this.loginButton = page.locator('[type="submit"]');
         this.errorMessage = page.locator('[data-test="error"]');
+        this.loginCredentialsContainer = page.locator('[data-test="login-credentials-container"]');
     }
     async login(email: string, password: string){
+        await this.emailInput.waitFor({state: 'visible'});
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
         await this.loginButton.click();

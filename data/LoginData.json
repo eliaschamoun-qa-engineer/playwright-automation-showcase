@@ -1,6 +1,7 @@
 {
     "users":{
         "standard_user": "standard_user",
+        "valid_password": "secret_sauce",
         "locked_out_user": "locked_out_user"
     },
     "error_messages":{

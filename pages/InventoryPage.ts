@@ -2,6 +2,7 @@ import { Page, Locator } from '@playwright/test';
 
 export class InventoryPage{
     readonly page: Page;
+    readonly cartLocator: Locator;
     readonly sortingDropdown: Locator; 
     readonly inventoryContainer: Locator;
     readonly itemList: Locator;
@@ -14,6 +15,7 @@ export class InventoryPage{
 
     constructor(page: Page){
         this.page = page;
+        this.cartLocator = page.locator('#shopping_cart_container');
         this.inventoryContainer = page.locator('[data-test="inventory-item-description"]');
         this.sortingDropdown = page.locator('[data-test="product-sort-container"]');
         this.itemList = page.locator('[data-test="inventory-list"]');
@@ -55,6 +57,16 @@ export class InventoryPage{
     }
     async getProductPrices(): Promise<string[]> {
         return await this.itemsPrices.allInnerTexts();
+    }
+    async clickOnCart(){
+
+    }
+    async returnCartItemsNumber(): Promise<string>{
+        const isBadgeVisible = await this.cartLocator.isVisible();
+        if(isBadgeVisible){
+            return await this.cartLocator.innerText();
+        }
+        return '0';
     }
     
     
