@@ -45,6 +45,7 @@ export class InventoryPage{
         
     }
     async clickOnShoppingCart(){
+        await this.shoppingCartLink.waitFor({state: 'visible'});
         await this.shoppingCartLink.click();
     }
     
