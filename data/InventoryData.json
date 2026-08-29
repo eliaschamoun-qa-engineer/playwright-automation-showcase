@@ -1,27 +1,78 @@
 {
-    "items_names": {
-        "sauce_labs_backpack": "Sauce Labs Backpack",
-        "sauce_labs_bike_light": "Sauce Labs Bike Light",
-        "sauce_labs_bolt_tshirt": "Sauce Labs Bolt T-Shirt",
-        "sauce_labs_fleece_jacket": "Sauce Labs Fleece Jacket",
-        "sauce_labs_onesie": "Sauce Labs Onesie",
-        "test_all_things_red": "Test.allTheThings() T-Shirt (Red)"
+  "items": [
+    {
+      "id": 4,
+      "name": "Sauce Labs Backpack",
+      "price": "$29.99",
+      "priceValue": 29.99,
+      "description": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection."
     },
-    "items_prices": {
-        "sauce_labs_backpack": "$29.99",
-        "sauce_labs_bike_light": "$9.99",
-        "sauce_labs_bolt_tshirt": "$15.99",
-        "sauce_labs_fleece_jacket": "$49.99",
-        "sauce_labs_onesie": "$7.99",
-        "test_all_things_red": "$15.99"
+    {
+      "id": 0,
+      "name": "Sauce Labs Bike Light",
+      "price": "$9.99",
+      "priceValue": 9.99,
+      "description": "A red light isn't the desired state in testing but it integrates well into the light fixture."
     },
-    "sorting_options": {
-        "az": "Name (A to Z)",
-        "za": "Name (Z to A)",
-        "lowToHigh": "Price (low to high)",
-        "highToLow": "Price (high to low)"
+    {
+      "id": 1,
+      "name": "Sauce Labs Bolt T-Shirt",
+      "price": "$15.99",
+      "priceValue": 15.99,
+      "description": "Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt."
     },
-    "labels":{
-        "swag_labs_label": "Swag Labs"
+    {
+      "id": 5,
+      "name": "Sauce Labs Fleece Jacket",
+      "price": "$49.99",
+      "priceValue": 49.99,
+      "description": "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office."
+    },
+    {
+      "id": 2,
+      "name": "Sauce Labs Onesie",
+      "price": "$7.99",
+      "priceValue": 7.99,
+      "description": "Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won't unravel."
+    },
+    {
+      "id": 3,
+      "name": "Test.allTheThings() T-Shirt (Red)",
+      "price": "$15.99",
+      "priceValue": 15.99,
+      "description": "This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate some tests. Super-soft and comfy ring-spun 100% cotton."
     }
+  ],
+  "items_names": {
+    "sauce_labs_backpack": "Sauce Labs Backpack",
+    "sauce_labs_bike_light": "Sauce Labs Bike Light",
+    "sauce_labs_bolt_tshirt": "Sauce Labs Bolt T-Shirt",
+    "sauce_labs_fleece_jacket": "Sauce Labs Fleece Jacket",
+    "sauce_labs_onesie": "Sauce Labs Onesie",
+    "test_all_things_red": "Test.allTheThings() T-Shirt (Red)"
+  },
+  "items_prices": {
+    "sauce_labs_backpack": "$29.99",
+    "sauce_labs_bike_light": "$9.99",
+    "sauce_labs_bolt_tshirt": "$15.99",
+    "sauce_labs_fleece_jacket": "$49.99",
+    "sauce_labs_onesie": "$7.99",
+    "test_all_things_red": "$15.99"
+  },
+  "sorting_options": {
+    "az": "Name (A to Z)",
+    "za": "Name (Z to A)",
+    "lowToHigh": "Price (low to high)",
+    "highToLow": "Price (high to low)"
+  },
+  "sorting_values": {
+    "az": "az",
+    "za": "za",
+    "lowToHigh": "lohi",
+    "highToLow": "hilo"
+  },
+  "labels": {
+    "swag_labs_label": "Swag Labs",
+    "products_title": "Products"
+  }
 }
