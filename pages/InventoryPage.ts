@@ -1,74 +1,101 @@
 import { Page, Locator } from '@playwright/test';
 
-export class InventoryPage{
-    readonly page: Page;
-    readonly cartLocator: Locator;
-    readonly sortingDropdown: Locator; 
-    readonly inventoryContainer: Locator;
-    readonly itemList: Locator;
-    readonly itemsName: Locator;
-    readonly itemsPrices: Locator;
-    readonly itemsDesc: Locator;
-    readonly addToCartButtons: Locator;
-    readonly removeFromCartButtons: Locator;
-    readonly shoppingCartLink: Locator;
+export class InventoryPage {
+  readonly page: Page;
+  readonly pageTitle: Locator;
+  readonly inventoryList: Locator;
+  readonly inventoryItems: Locator;
+  readonly itemNames: Locator;
+  readonly itemPrices: Locator;
+  readonly itemDescs: Locator;
+  readonly itemImages: Locator;
+  readonly sortingDropdown: Locator;
+  readonly activeSortOption: Locator;
+  readonly shoppingCartLink: Locator;
+  readonly shoppingCartBadge: Locator;
+  readonly addToCartButtons: Locator;
+  readonly removeFromCartButtons: Locator;
 
-    constructor(page: Page){
-        this.page = page;
-        this.cartLocator = page.locator('#shopping_cart_container');
-        this.inventoryContainer = page.locator('[data-test="inventory-item-description"]');
-        this.sortingDropdown = page.locator('[data-test="product-sort-container"]');
-        this.itemList = page.locator('[data-test="inventory-list"]');
-        this.itemsName = page.locator('[data-test="inventory-item-name"]');
-        this.itemsPrices = page.locator('[class="inventory_item_price"]');
-        this.itemsDesc = page.locator('[data-test="inventory-item-description"]');
-        this.addToCartButtons = page.locator('[class="btn btn_primary btn_small btn_inventory "]');
-        this.removeFromCartButtons = page.locator('[class="btn btn_secondary btn_small btn_inventory "]');
-        this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]');
-    }
+  constructor(page: Page) {
+    this.page = page;
+    this.pageTitle = page.locator('[data-test="title"]');
+    this.inventoryList = page.locator('[data-test="inventory-list"]');
+    this.inventoryItems = page.locator('[data-test="inventory-item"]');
+    this.itemNames = page.locator('[data-test="inventory-item-name"]');
+    this.itemPrices = page.locator('[data-test="inventory-item-price"]');
+    this.itemDescs = page.locator('[data-test="inventory-item-desc"]');
+    this.itemImages = page.locator('.inventory_item_img img');
+    this.sortingDropdown = page.locator('[data-test="product-sort-container"]');
+    this.activeSortOption = page.locator('[data-test="active-option"]');
+    this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]');
+    this.shoppingCartBadge = page.locator('[data-test="shopping-cart-badge"]');
+    this.addToCartButtons = page.locator('button[data-test^="add-to-cart-"]');
+    this.removeFromCartButtons = page.locator('button[data-test^="remove-"]');
+  }
 
-    async addProductToCartByIndex(index: number ){
-        try{
-            await this.addToCartButtons.nth(index).click();
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-    async removeProductFromCartByIndex(index: number ){
-        try{
-            await this.removeFromCartButtons.nth(index).click();
-        }
-        catch(error){
-            console.log(error);
-        }
-        
-    }
-    async clickOnShoppingCart(){
-        await this.shoppingCartLink.waitFor({state: 'visible'});
-        await this.shoppingCartLink.click();
-    }
-    
-    async selectSortingOption(optionText: string) {
-        await this.sortingDropdown.selectOption(optionText);
-    }
+  async goto(): Promise<void> {
+    await this.page.goto('/inventory.html');
+  }
 
-    async getProductNames(): Promise<string[]> {
-        return await this.itemsName.allInnerTexts();
-    }
-    async getProductPrices(): Promise<string[]> {
-        return await this.itemsPrices.allInnerTexts();
-    }
-    async clickOnCart(){
+  async addProductToCartByIndex(index: number): Promise<void> {
+    await this.addToCartButtons.nth(index).click();
+  }
 
+  async removeProductFromCartByIndex(index: number): Promise<void> {
+    await this.removeFromCartButtons.nth(index).click();
+  }
+
+  async addProductByName(name: string): Promise<void> {
+    const itemContainer = this.inventoryItems.filter({ hasText: name });
+    await itemContainer.locator('button[data-test^="add-to-cart-"]').click();
+  }
+
+  async removeProductByName(name: string): Promise<void> {
+    const itemContainer = this.inventoryItems.filter({ hasText: name });
+    await itemContainer.locator('button[data-test^="remove-"]').click();
+  }
+
+  async clickProductTitle(name: string): Promise<void> {
+    await this.itemNames.filter({ hasText: name }).click();
+  }
+
+  async clickProductImage(index: number): Promise<void> {
+    await this.itemImages.nth(index).click();
+  }
+
+  async clickShoppingCart(): Promise<void> {
+    await this.shoppingCartLink.click();
+  }
+
+  async selectSortingOption(optionValueOrText: string): Promise<void> {
+    await this.sortingDropdown.selectOption(optionValueOrText);
+  }
+
+  async getProductNames(): Promise<string[]> {
+    return await this.itemNames.allInnerTexts();
+  }
+
+  async getProductPrices(): Promise<string[]> {
+    return await this.itemPrices.allInnerTexts();
+  }
+
+  async getProductPricesAsNumbers(): Promise<number[]> {
+    const prices = await this.getProductPrices();
+    return prices.map((p) => parseFloat(p.replace(/[^0-9.]/g, '')));
+  }
+
+  async getCartBadgeCount(): Promise<number> {
+    const isVisible = await this.shoppingCartBadge.isVisible();
+    if (!isVisible) return 0;
+    const text = await this.shoppingCartBadge.innerText();
+    return parseInt(text.trim(), 10) || 0;
+  }
+
+  async returnCartItemsNumber(): Promise<string> {
+    const isVisible = await this.shoppingCartBadge.isVisible();
+    if (isVisible) {
+      return await this.shoppingCartBadge.innerText();
     }
-    async returnCartItemsNumber(): Promise<string>{
-        const isBadgeVisible = await this.cartLocator.isVisible();
-        if(isBadgeVisible){
-            return await this.cartLocator.innerText();
-        }
-        return '0';
-    }
-    
-    
+    return '0';
+  }
 }
