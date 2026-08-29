@@ -96,6 +96,24 @@ export class InventoryPage {
     if (isVisible) {
       return await this.shoppingCartBadge.innerText();
     }
+<<<<<<< HEAD
     return '0';
   }
+=======
+    async getProductPrices(): Promise<string[]> {
+        return await this.itemsPrices.allInnerTexts();
+    }
+    async clickOnCart(){
+
+    }
+    async returnCartItemsNumber(): Promise<string>{
+        const isBadgeVisible = await this.cartLocator.isVisible();
+        if(isBadgeVisible){
+            return await this.cartLocator.innerText();
+        }
+        return '0';
+    }
+    
+    
+>>>>>>> main
 }
